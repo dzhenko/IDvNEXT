@@ -1,0 +1,38 @@
+footer {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    background-color: #101010;
+    color: #fff;
+}
+
+footer a {
+    color: #fff;
+}
+
+.social {
+    display: inline-block;
+    width: 17px;
+    height: 16px;
+    background: url(/content/img/social.png)no-repeat;
+    font-size: 16px;
+}
+
+.social-email {
+    background-position: -193px 0;
+}
+
+.social-telegram {
+    background-position: -167px 0;
+}
+
+.social-facebook {
+    background-position: -2px 0;
+}
+
+.social-twitter {
+    background-position: -22px 0;
+}
+
+.social-reddit {
+    background-position: -115px 0;
+}

@@ -1,0 +1,19 @@
+<div class="wizard-card">
+    <div class="wizard-navigation">
+        <div class="progress-with-circle">
+            <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" [attr.aria-valuemax]="steps.length" style="width: 21%;"></div>
+        </div>
+        <ul>
+            <ng-template ngFor let-step [ngForOf]="steps">
+                <li>
+                    <a href="#{{step.href}}" data-toggle="tab">
+                        <div class="icon-circle">
+                            <i class="material-icons">{{step.icon}}</i>
+                        </div>
+                        {{step.title}}
+                    </a>
+                </li>
+            </ng-template>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Humanizer.Core" Version="2.4.2" />
+        <PackageReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="node_modules\**\*" />
+        <Folder Include="src\app\content\img\" />
+        <Folder Include="src\app\services\data\" />
+        <Folder Include="src\app\services\eth\" />
+        <Folder Include="wwwroot\" />
+    </ItemGroup>
+</Project>

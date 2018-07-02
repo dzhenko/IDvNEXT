@@ -1,0 +1,50 @@
+<div class="navbar navbar-inverse p-0">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class='navbar-brand' [routerLink]="['/home']">IDVN</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/home']">HOME</a>
+                </li>
+
+                <li *ngIf="isLoggedIn" class="dropdown">
+                    <a class="dropdown-toggle cursor-pointer" data-toggle="dropdown" role="button" aria-expanded="false">LINK</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/sublink1']">SUBLINK1</a></li>
+                        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/sublink2']">SUBLINK2</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ng-container *ngIf="isLoggedIn">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle cursor-pointer" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <img *ngIf="imgUrl" [src]="imgUrl" width="22" />
+                            &nbsp;
+                            ACCOUNT
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li [routerLinkActive]="['link-active']"><a [routerLink]="['/profile']">SETTINGS</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </ng-container>
+
+            <ul *ngIf="!isLoggedIn" class="nav navbar-nav navbar-right">
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/welcome']">
+                        <span class='glyphicon glyphicon-flag'></span> GET STARTED
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
