@@ -16,7 +16,6 @@
         <Folder Include="node_modules\**\*" />
         <Folder Include="src\app\content\img\" />
         <Folder Include="src\app\services\data\" />
-        <Folder Include="src\app\services\eth\" />
         <Folder Include="wwwroot\" />
     </ItemGroup>
 </Project>
