@@ -10,6 +10,7 @@ import { RouterService } from './core/router.service';
 import { StorageService } from './core/storage.service';
 import { UtilsService } from './core/utils.service';
 
+import { EthService } from './eth/eth.service';
 import { SwarmService } from './eth/swarm.service';
 
 export * from './core/app.service';
@@ -24,6 +25,7 @@ export * from './core/router.service';
 export * from './core/storage.service';
 export * from './core/utils.service';
 
+export * from './eth/eth.service';
 export * from './eth/swarm.service';
 
 export const APP_SERVICES = [
@@ -39,5 +41,6 @@ export const APP_SERVICES = [
     StorageService,
     UtilsService,
 
+    EthService,
     SwarmService
 ];
