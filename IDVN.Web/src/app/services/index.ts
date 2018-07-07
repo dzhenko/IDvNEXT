@@ -11,6 +11,7 @@ import { StorageService } from './core/storage.service';
 import { UtilsService } from './core/utils.service';
 
 import { EthService } from './eth/eth.service';
+import { MetamaskService } from './eth/metamask.service';
 import { SwarmService } from './eth/swarm.service';
 
 export * from './core/app.service';
@@ -26,6 +27,7 @@ export * from './core/storage.service';
 export * from './core/utils.service';
 
 export * from './eth/eth.service';
+export * from './eth/metamask.service';
 export * from './eth/swarm.service';
 
 export const APP_SERVICES = [
@@ -42,5 +44,6 @@ export const APP_SERVICES = [
     UtilsService,
 
     EthService,
+    MetamaskService,
     SwarmService
 ];
