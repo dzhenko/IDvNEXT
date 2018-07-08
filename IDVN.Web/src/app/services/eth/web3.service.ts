@@ -159,9 +159,30 @@ export class Web3Service {
     }
 
     readContractMethod(method: any, from: string = null): Observable<any> {
-        return UtilsService.observableFromCb(done => method.call({
-            from: from
-        }).then(res => done(true, res)).catch(err => done(false, err)));
+        return UtilsService.observableFromCb(done => method.call({ from: from })
+            .then(res => done(true, res))
+            .catch(err => done(false, err)));
+    }
+
+    readContractMethods(methods: any[], from: string = null): Observable<any[]> {
+        return UtilsService.observableFromCb(done => {
+            var results = [];
+            var batch = new this.web3.BatchRequest();
+
+            methods.forEach((m, i) => {
+                results[i] = { isDone: false };
+                var cb = (err, res) => {
+                    results[i] = { err: err, res: res, isDone: true };
+                    if (!UtilsService.arrayAny(results, r => !r.isDone)) {
+                        done(true, results.map(r => { return { err: r.err, res: r.res } }));
+                    }
+                };
+
+                batch.add(m.call.request({ from: from }, cb));
+            });
+
+            batch.execute();
+        });
     }
 
     writeContractMethod(method: any, from: string, gasPrice: string = '100000', gas: number = 1000000) {

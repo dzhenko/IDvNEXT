@@ -7,20 +7,20 @@ declare var toastr: any;
 export class NotificationsService {
     constructor() { }
 
-    public static success(text: string, cb: any = null, title: string = 'SUCCESS', timeout: number = 2000) {
-        NotificationsService.buildAlert('success', title, text, null, timeout);
+    public static success(text: string, cb: any = null, title: string = 'SUCCESS', timeout: number = 4000) {
+        NotificationsService.successSwal(text, cb, title);
     }
 
-    public static successTx(text: string, txs: string[], cb: any = null, title: string = 'SUCCESS', timeout: number = 2000) {
-        NotificationsService.buildAlert('success', title, text, txs, timeout);
+    public static successTx(text: string, txs: string[], cb: any = null, title: string = 'SUCCESS', timeout: number = 4000) {
+        NotificationsService.successSwal(text, cb, title);
     }
 
-    public static error(text: string, cb: any = null, title: string = 'ERROR', timeout: number = 2000) {
-        NotificationsService.buildAlert('danger', title, text, null, timeout);
+    public static error(text: string, cb: any = null, title: string = 'ERROR', timeout: number = 4000) {
+        NotificationsService.errorSwal(text, cb, title);
     }
 
-    public static warning(text: string, cb: any = null, title: string = 'WARNING', timeout: number = 2000) {
-        NotificationsService.buildAlert('warning', title, text, null, timeout);
+    public static warning(text: string, cb: any = null, title: string = 'WARNING', timeout: number = 4000) {
+        NotificationsService.warningSwal(text, cb, title);
     }
 
     public static confirm(

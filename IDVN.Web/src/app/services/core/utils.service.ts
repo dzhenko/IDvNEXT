@@ -185,6 +185,16 @@ export class UtilsService {
         }
     }
 
+    public static arrayDistinct(arr: any[]): any[] {
+        if (!arr || !arr.length) {
+            return arr;
+        }
+
+        var result = {};
+        arr.forEach(e => result[e] = true);
+        return Object.getOwnPropertyNames(result);
+    }
+
     public static arrayAny(arr: any[], cb: (obj: any) => boolean): boolean {
         return !!UtilsService.arrayFirst(arr, cb);
     }
@@ -282,5 +292,9 @@ export class UtilsService {
         }
 
         return val;
+    }
+
+    public static random(from: number, to: number) {
+        return Math.floor(Math.random() * (to - from)) + from;
     }
 }

@@ -1,1 +1,22 @@
-<h1 class="text-center">Claim your alias</h1>
+<h1 class="text-center">Claimed your alias</h1>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <a [routerLink]="['/alias/search']" class="btn btn-sm btn-success">Find a suitable alias</a>
+        <a [routerLink]="['/alias/list']" class="btn btn-sm btn-success">View your aliases</a>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="input-group">
+            <input [(ngModel)]="aliasToClaim" type="text" class="form-control" placeholder="Enter alias to search for" name="aliasToClaim">
+            <span class="input-group-btn">
+                <button (click)="claim()" class="btn btn-success" type="button">Claim</button>
+            </span>
+        </div>
+    </div>
+</div>
+<br />

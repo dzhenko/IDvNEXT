@@ -24,6 +24,12 @@ export class AliasesContractService {
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
 
+    public areClaimedAliases(aliases: string[]): Observable<boolean[]> {
+        return this.web3.readContractMethods(aliases.map(a => AliasesContract.Instance.methods.isClaimedAlias(a)))
+            .map(resArr => resArr.map(el => !el.err && el.res))
+            .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
+    }
+
     public aliasToAddress(alias: string): Observable<string> {
         return this.web3.readContractMethod(AliasesContract.Instance.methods.aliasToAddress(alias)).map(r => {
             debugger;
@@ -43,7 +49,7 @@ export class AliasesContractService {
                 }
             }
 
-            return Observable.forkJoin(aliasesObs).map(arr => UtilsService.arrayFromObject(UtilsService.objectFromArray(arr)));
+            return Observable.forkJoin(aliasesObs).map(arr => UtilsService.arrayDistinct(arr));
         }).catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
 

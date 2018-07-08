@@ -6,7 +6,8 @@ import {
     DevComponent,
 
     ClaimAliasComponent,
-    SearchAliasComponent
+    SearchAliasComponent,
+    ListAliasComponent
  } from './components/index';
 
 export const APP_ROUTES: Routes = [
@@ -14,7 +15,9 @@ export const APP_ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
 
     { path: 'alias/claim', component: ClaimAliasComponent },
+    { path: 'alias/claim/:id', component: ClaimAliasComponent },
     { path: 'alias/search', component: SearchAliasComponent },
+    { path: 'alias/list', component: ListAliasComponent },
 
     { path: 'dev', component: DevComponent },
 

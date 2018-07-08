@@ -1,6 +1,7 @@
 import { AppComponent } from './app.component';
 
 import { ClaimAliasComponent } from './alias/claim/claim.component';
+import { ListAliasComponent } from './alias/list/list.component';
 import { SearchAliasComponent } from './alias/search/search.component';
 
 import { DevComponent } from './dev/dev.component';
@@ -17,6 +18,7 @@ import { WizardComponent } from './shared/wizard/wizard.component';
 export * from './app.component';
 
 export * from './alias/claim/claim.component';
+export * from './alias/list/list.component';
 export * from './alias/search/search.component';
 
 export * from './dev/dev.component';
@@ -34,6 +36,7 @@ export const APP_COMPONENTS = [
     AppComponent,
 
     ClaimAliasComponent,
+    ListAliasComponent,
     SearchAliasComponent,
 
     DevComponent,

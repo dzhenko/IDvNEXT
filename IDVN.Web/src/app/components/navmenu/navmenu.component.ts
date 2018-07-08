@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 import {
-    IdentityService
+    IdentityService,
+    EthService
 } from '../../services/index';
 
 @Component({
@@ -13,8 +14,8 @@ export class NavMenuComponent{
     constructor(
         private identityService: IdentityService) {
     }
-    
-    public imgUrl = '';
+
+    public imgUrl = EthService.generateAddressImageUrl(this.identityService.getAddress());
     public isLoggedIn = this.identityService.isLoggedIn();
     public user = this.identityService.getAddress();
 }
