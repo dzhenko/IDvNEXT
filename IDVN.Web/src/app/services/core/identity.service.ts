@@ -10,34 +10,24 @@ import { NotificationsService } from './notifications.service';
 @Injectable()
 export class IdentityService {
     private static readonly ADDRESS_KEY = 'ADDRESS_KEY';
+    private static readonly PK_KEY = 'PK_KEY';
 
     constructor(
         private loggerService: LoggerService,
         private storageService: StorageService) { }
 
     private address: string;
-    private pwd: string;
-    private pwdActiveTo: Date;
-    private pwdCleanHandle: any;
-
-    public tempToggleLogin() {
-        if (this.address) {
-            this.removeAddress();
-        }
-        else {
-            this.setAddress('0x0000000000000000000000000000000000000000');
-        }
-    }
-
+    private pk: string;
+    
     public isLoggedIn(): boolean {
         return !!this.getAddress();
     }
 
     public getAddress() {
         if (!this.address) {
-            const persistedDisplayName = this.storageService.getItem(IdentityService.ADDRESS_KEY);
-            if (persistedDisplayName) {
-                this.address = persistedDisplayName;
+            const persistedVal = this.storageService.getItem(IdentityService.ADDRESS_KEY);
+            if (persistedVal) {
+                this.address = persistedVal;
             }
         }
 
@@ -47,115 +37,37 @@ export class IdentityService {
     public setAddress(address: string) {
         this.address = address.toLowerCase();
         this.storageService.setItem(IdentityService.ADDRESS_KEY, this.address);
-        window.location.href = '/';
     }
 
     public removeAddress() {
         this.address = null;
-        this.storageService.removeItem(IdentityService.ADDRESS_KEY);
-        window.location.href = '/';
+        this.storageService.removeItem(IdentityService.PK_KEY);
     }
 
-    public getPk(): Observable<any> {
-        // TODO: Dynamic?
-        this.pwd = '0x01759e83dfae7067a1151233e52092e75b58b14e7fa5f92ddc5c999235d6ba48';
-        return UtilsService.observableFrom(this.pwd);
-    }
-
-    public setPwd(pwd: string) {
-        this.pwd = pwd;
-
-        const activeTo = new Date();
-        activeTo.setHours(activeTo.getHours() + 2);
-        this.pwdActiveTo = activeTo;
-
-        this.pwdCleanHandle = setTimeout(() => this.removePwd(), 1000 * 60 * 60 * 2); // 2 hours
-    }
-
-    public isUnlocked(): boolean {
-        if (this.pwd) {
-            if (this.pwdActiveTo < new Date()) {
-                this.removePwd();
-            }
-            else {
-                return true;
+    public getPk() {
+        if (!this.pk) {
+            const persistedVal = this.storageService.getItem(IdentityService.PK_KEY);
+            if (persistedVal) {
+                this.pk = persistedVal;
             }
         }
 
-        return false;
+        return this.pk;
     }
 
-    public getPwd(): Observable<string> {
-        if (this.isUnlocked()) {
-            return UtilsService.observableFrom(this.pwd);
-        }
-        else {
-            return this.promptPwd().catch(() => {
-                NotificationsService.error('Invalid password');
-                return this.promptPwd();
-            });
-        }
+    public setPk(address: string) {
+        this.pk = address.toLowerCase();
+        this.storageService.setItem(IdentityService.PK_KEY, this.pk);
     }
 
-    public promptPwd(): Observable<string> {
-        return UtilsService.observableFromCb(done => NotificationsService.prompt(
-            null,
-            'Please input your password',
-            (val) => {
-                if (this.validatePwd(val)) {
-                    this.setPwd(val);
-                    done(true, val);
-                }
-                else {
-                    done(false, null);
-                }
-            },
-            null,
-            (val) => {
-                if (!val) {
-                    return 'Password is required';
-                }
-            },
-            'password',
-            'Password'));
+    public removePk() {
+        this.pk = null;
+        this.storageService.removeItem(IdentityService.PK_KEY);
     }
-
+    
     public removeAll() {
-        this.removePwd();
+        this.removePk();
         this.removeAddress();
-    }
-
-    public withPasswordCb(cb: (pwd: string) => any): Observable<any> {
-        return UtilsService.observableFromCb(done => {
-            this.getPwd().subscribe(pwd => {
-                done(true, cb(pwd));
-            });
-        });
-    }
-
-    public withPasswordObs(obs: (pwd: string) => Observable<any>): Observable<any> {
-        return UtilsService.observableFromCb(done => {
-            this.getPwd().subscribe(pwd => {
-                obs(pwd).subscribe(r => {
-                    done(true, r);
-                });
-            });
-        });
-    }
-
-    private removePwd() {
-        if (this.pwdCleanHandle) {
-            clearTimeout(this.pwdCleanHandle);
-        }
-
-        this.pwd = null;
-        this.pwdActiveTo = null;
-        this.pwdCleanHandle = null;
-    }
-
-    private validatePwd(pwd: string): boolean {
-        // TODO: Is this possible? Try to sign something and validate ?
-        return !!pwd;
     }
 
     private log(message: string, isError: boolean = false) {

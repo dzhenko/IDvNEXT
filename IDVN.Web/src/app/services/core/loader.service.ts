@@ -10,6 +10,7 @@ export class LoaderService {
         if (LoaderService.value === false) {
             LoaderService.value = true;
             LoaderService.onToggle.emit(true);
+            console.log('showing loader');
             // $('#loaderwrapper').show();
             // $('#appwrapper').hide();
         }
@@ -19,6 +20,7 @@ export class LoaderService {
         if (LoaderService.value === true) {
             LoaderService.value = false;
             LoaderService.onToggle.emit(false);
+            console.log('hiding loader');
             // $('#loaderwrapper').hide();
             // $('#appwrapper').show();
         }

@@ -14,7 +14,8 @@
 
     <ItemGroup>
         <Folder Include="node_modules\**\*" />
-        <Folder Include="src\app\content\img\" />
+        <None Remove="src\app\services\eth\aliases.contract.ts" />
+        <Content Include="src\app\services\eth\aliases.contract.ts" />
         <Folder Include="src\app\services\data\" />
         <Folder Include="wwwroot\" />
     </ItemGroup>

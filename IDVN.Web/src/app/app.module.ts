@@ -13,7 +13,7 @@ import 'rxjs/Rx';
 import { AppRoutingModule } from './app.routing';
 
 import { AppComponent, APP_COMPONENTS } from './components/index';
-import { APP_SERVICES } from './services/index';
+import { APP_SERVICES, ConfigService, Web3Service } from './services/index';
 import { APP_DIRECTIVES } from './directives/index';
 import { APP_PIPES } from './pipes/index';
 
@@ -36,6 +36,12 @@ import { APP_PIPES } from './pipes/index';
         {
             provide: LocationStrategy,
             useClass: HashLocationStrategy
+        },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: ConfigService.preInitFactory,
+            deps: [ConfigService, Web3Service],
+            multi: true
         }
     ],
 
