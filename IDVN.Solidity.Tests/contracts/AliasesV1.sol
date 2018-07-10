@@ -18,8 +18,6 @@ contract AliasesV1 {
     }
     
     function aliasToAddress(string _alias) public view returns (address addr) {
-        require(!isEmptyString(_alias), 'Invalid alias.');
-        require (isClaimedAlias(_alias), 'Alias not claimed yet.');
         return aliasesMap[_alias].owner;
     }
     
