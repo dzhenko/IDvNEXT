@@ -30,9 +30,7 @@ contract("AliasesV1.claimedAliasesCount", accounts => {
         try {
             await aliasesV1.claimAlias(al1, {from: accounts[0]});
         } catch(ex) {
-            if (!isRevert(ex)){
-                throw ex;
-            }
+            assert.ok(isRevert(ex));
         }
 
         const result = await aliasesV1.claimedAliasesCount.call();
@@ -52,9 +50,7 @@ contract("AliasesV1.claimedAliasesCount", accounts => {
         try {
             await aliasesV1.releaseAlias(al1, {from: accounts[0]});
         } catch(ex) {
-            if (!isRevert(ex)){
-                throw ex;
-            }
+            assert.ok(isRevert(ex));
         }
         
         const result = await aliasesV1.claimedAliasesCount.call();

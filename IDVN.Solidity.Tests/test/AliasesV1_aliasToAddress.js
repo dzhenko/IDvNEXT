@@ -1,9 +1,5 @@
 let AliasesV1 = artifacts.require("AliasesV1");
 
-let isRevert = function(ex){
-    return ex && /revert/.test(ex.message);
-}
-
 contract("AliasesV1.aliasToAddress", accounts => {    
     let al1 = 'john@main.eth';
     let al2 = 'david@main.eth';

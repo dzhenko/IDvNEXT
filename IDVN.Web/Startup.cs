@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using IDVN.Web.Logic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,8 @@ namespace IDVN.Web
             services.Configure<GzipCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Fastest);
             services.AddResponseCompression(opt => opt.Providers.Add<GzipCompressionProvider>());
 
+            // services.AddSingleton<IConfiguration>();
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -45,6 +48,9 @@ namespace IDVN.Web
 
                 return database;
             });
+
+            services.AddTransient<Web3Service>();
+            services.AddTransient<AliasesService>();
 
             services.AddCors(options => options.AddPolicy(
                 "CorsPolicy",

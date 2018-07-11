@@ -4,7 +4,7 @@ let isRevert = function(ex){
     return ex && /revert/.test(ex.message);
 }
 
-contract("AliasesV1.aliasesCount", accounts => {    
+contract("AliasesV1.aliasesCount_aliasAtIndex", accounts => {    
     let al1 = 'john@main.eth';
     let al2 = 'david@main.eth';
     let emptyAddress = '0x0000000000000000000000000000000000000000';
@@ -19,7 +19,7 @@ contract("AliasesV1.aliasesCount", accounts => {
             await aliasesV1.aliasAtIndex(1, {from: accounts[0]});
             assert.fail("did not throw");
         } catch(ex) {
-            assert.ok(true);
+            assert.ok(isRevert(ex));
         }
     });
 
