@@ -141,7 +141,7 @@ export class Web3Service {
         return new this.web3.eth.Contract(abi, address);
     }
 
-    deployContract(abi: any[], data: string, from: string, ctorParams: any[] = null, gasPrice: string = '100000', gas: number = 1000000): Observable<string> {
+    deployContract(abi: any[], data: string, from: string, ctorParams: any[] = null, gasPrice: string = '100000', gas: number = 5000000): Observable<string> {
         const contract = new this.web3.eth.Contract(abi);
         return UtilsService.observableFromCb(done => contract
             .deploy({

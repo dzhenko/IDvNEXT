@@ -33,8 +33,26 @@ export class DevComponent {
         });
     }
 
-    public claimAlias() {
-        this.aliasesContract.claimAlias(this.alias).subscribe(r => {
+    public canClaimAliasForFree() {
+        this.aliasesContract.canClaimAliasForFree().subscribe(r => {
+            debugger;
+        });
+    }
+
+    public claimAliasForFree() {
+        this.aliasesContract.claimAliasForFree(this.alias).subscribe(r => {
+            debugger;
+        });
+    }
+
+    public claimAliasWithEth() {
+        this.aliasesContract.claimAliasWithEth(this.alias).subscribe(r => {
+            debugger;
+        });
+    }
+
+    public claimAliasWithToken() {
+        this.aliasesContract.claimAliasWithToken(this.alias).subscribe(r => {
             debugger;
         });
     }
@@ -46,7 +64,25 @@ export class DevComponent {
     }
 
     public claimedAliasesCount() {
-        this.aliasesContract.claimedAliasesCount().subscribe(r => {
+        this.aliasesContract.getClaimedAliasesCount().subscribe(r => {
+            debugger;
+        });
+    }
+
+    public getClaimEthFeeAmount() {
+        this.aliasesContract.getClaimEthFeeAmount().subscribe(r => {
+            debugger;
+        });
+    }
+
+    public getClaimTokenFeeAmount() {
+        this.aliasesContract.getClaimTokenFeeAmount().subscribe(r => {
+            debugger;
+        });
+    }
+
+    public getClaimTokenAddress() {
+        this.aliasesContract.getClaimTokenAddress().subscribe(r => {
             debugger;
         });
     }

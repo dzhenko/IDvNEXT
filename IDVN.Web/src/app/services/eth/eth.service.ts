@@ -9,6 +9,10 @@ declare var blockies: any;
 export class EthService {
     constructor(private web3Service: Web3Service) { }
 
+    public static isEmptyAddress(addr: string): boolean {
+        return addr && addr.toLowerCase() !== '0x0000000000000000000000000000000000000000';
+    }
+
     public static isValidPk(pk: string): boolean {
         return pk && /^[0-9a-f]{64}$/i.test(pk.toLowerCase());
     }

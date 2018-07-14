@@ -39,9 +39,9 @@ export class ClaimAliasComponent implements OnInit, OnDestroy {
                     NotificationsService.error('This alias is already claimed. Go to Search aliases to find an unclaimed one.');
                 }
                 else {
-                    this.aliasesContract.claimAlias(this.aliasToClaim).subscribe(tx => {
-                        NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in List aliases.', [tx]);
-                    });
+                    //this.aliasesContract.claimAlias(this.aliasToClaim).subscribe(tx => {
+                      //  NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in List aliases.', [tx]);
+                    //});
                 }
             });
         });

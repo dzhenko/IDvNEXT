@@ -16,6 +16,6 @@ export class HomeComponent implements AfterViewInit {
     public claimedAliasesCount: any = 'loading ..';
 
     ngAfterViewInit() {
-        this.aliasesContract.claimedAliasesCount().subscribe(r => this.claimedAliasesCount = r);
+        this.aliasesContract.getClaimedAliasesCount().subscribe(r => this.claimedAliasesCount = r);
     }
 }
