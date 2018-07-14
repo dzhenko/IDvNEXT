@@ -24,3 +24,11 @@
 <button class="btn" (click)="getClaimEthFeeAmount()">getClaimEthFeeAmount</button>
 <button class="btn" (click)="getClaimTokenFeeAmount()">getClaimTokenFeeAmount</button>
 <button class="btn" (click)="getClaimTokenAddress()">getClaimTokenAddress</button>
+
+<hr />
+
+
+<input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+<button (click)="update()" class="btn btn-primary btn-lg">Update</button>
+<input [(ngModel)]="avatarFileName" name="avatarFileName" />
+<button (click)="read()" class="btn btn-primary btn-lg">Read</button>

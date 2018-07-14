@@ -16,7 +16,7 @@ export class IdentityService {
         private loggerService: LoggerService,
         private storageService: StorageService) { }
 
-    private address: string;
+    private address: string = '0xB91E832fb9Ce622f6e0Ce1e54e411C12F75fBa6A';
     private pk: string;
     
     public isLoggedIn(): boolean {

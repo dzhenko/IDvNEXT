@@ -2,7 +2,8 @@ import { Component, AfterViewInit } from '@angular/core';
 
 import {
     AliasesContractService,
-    NotificationsService
+    NotificationsService,
+    IPFSService
 } from '../../../services/index';
 
 @Component({
@@ -11,9 +12,8 @@ import {
 })
 export class ListAliasComponent implements AfterViewInit {
     constructor(
-        private aliasesContract: AliasesContractService) {
-        
-    }
+        private aliasesContract: AliasesContractService,
+        private iPFSService: IPFSService) { }
 
     public aliases: string[] = [];
 
@@ -27,6 +27,37 @@ export class ListAliasComponent implements AfterViewInit {
                 NotificationsService.successTx('You have succesfully created a transaction', [tx]);
                 this.init();
             }));
+    }
+
+    public view(alias: string) {
+        this.aliasesContract.readAvatarHash(alias).subscribe(hash => {
+            if (hash) {
+                window.open('https://ipfs.io/ipfs/' + hash, '_blank');
+            }
+        });
+    }
+
+    public onFileChange() {
+        if (!arguments || !arguments.length) {
+            return;
+        }
+
+        var event = arguments[0];
+        if (!event || !event.target || !event.target.files || !event.target.files.length || !event.target.files[0]) {
+            return;
+        }
+
+        var file = event.target.files[0];
+        var alias = arguments[1];
+        if (!alias) {
+            return;
+        }
+
+        NotificationsService.confirm('Are you sure you want to update the avatar for alias ' + alias + ' ?', () => {
+            this.iPFSService.update(alias, file).subscribe(tx => {
+                NotificationsService.successTx('You have sent a transaction to update your avatar!. If it succeeds you will be able to view your alias avatar.', [tx]);
+            });
+        });
     }
 
     private init() {

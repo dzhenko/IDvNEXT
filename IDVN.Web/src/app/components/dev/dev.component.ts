@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import {
-    AliasesContractService
+    AliasesContractService, IPFSService
 } from '../../services/index';
 
 @Component({
@@ -9,11 +9,16 @@ import {
     styleUrls: ['./dev.component.css']
 })
 export class DevComponent {
-    constructor(private aliasesContract: AliasesContractService) {
+    constructor(
+        private aliasesContract: AliasesContractService,
+        private iPFSService: IPFSService) {
         
     }
 
     public alias: string = null;
+
+    public avatarFileName: string = null;
+    public avatarFile: any = null;
 
     public isClaimedAlias() {
         this.aliasesContract.isClaimedAlias(this.alias).subscribe(r => {
@@ -84,6 +89,25 @@ export class DevComponent {
     public getClaimTokenAddress() {
         this.aliasesContract.getClaimTokenAddress().subscribe(r => {
             debugger;
+        });
+    }
+
+    onFileChange(event) {
+        if (event.target.files && event.target.files.length) {
+            this.avatarFile = event.target.files[0];
+        }
+    }
+
+    public update() {
+        this.iPFSService.update(this.alias, this.avatarFile).subscribe(r => alert(r));
+    }
+
+    public view(alias: string) {
+        this.aliasesContract.readAvatarHash(alias).subscribe(hash => {
+            debugger;
+            if (hash) {
+                window.open('https://ipfs.io/ipfs/' + hash, '_blank');
+            }
         });
     }
 }

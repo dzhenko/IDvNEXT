@@ -17,13 +17,28 @@
             <thead>
                 <tr>
                     <th colspan="2">Alias</th>
-                    <th></th>
+                    <th>View Avatar</th>
+                    <th>Update Avatar</th>
+                    <th>Release</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let alias of aliases">
                     <td colspan="2">{{alias}}</td>
-                    <td><button (click)="release(alias)" class="btn btn-danger">Release</button></td>
+
+                    <td>
+                        <button (click)="view(alias)" class="btn btn-primary">View</button>
+                    </td>
+
+                    <td>
+                        <label class="btn btn-success btn-file">
+                            Update <input (change)="onFileChange($event, alias)" name="updateInput" type="file" style="display: none;">
+                        </label>
+                    </td>
+
+                    <td>
+                        <button (click)="release(alias)" class="btn btn-danger">Release</button>
+                    </td>
                 </tr>
                 <tr *ngIf="!aliases.length" class="text-center">
                     <td colspan="2">

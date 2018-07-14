@@ -29,13 +29,35 @@ export class AliasesContractService {
             .readContractMethod(AliasesContract.Instance.methods.isClaimedAlias(alias))
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
+
     public isOwnAlias(alias: string): Observable<boolean> {
         if (!alias) {
             return UtilsService.observableFromEmpty();
         }
 
         return this.web3
-            .readContractMethod(AliasesContract.Instance.methods.isOwnAlias(alias))
+            .readContractMethod(AliasesContract.Instance.methods.isOwnAlias(alias), this.identityService.getAddress())
+            .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
+    }
+
+    public updateAvatarHash(alias: string, hash: string): Observable<string> {
+        if (!alias || !hash) {
+            return UtilsService.observableFromEmpty();
+        }
+
+        return this.web3
+            .writeContractMethod(AliasesContract.Instance.methods.updateAvatarHash(alias, hash), this.identityService.getAddress())
+            .map(r => r.transactionHash)
+            .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
+    }
+
+    public readAvatarHash(alias: string): Observable<string> {
+        if (!alias) {
+            return UtilsService.observableFromEmpty();
+        }
+
+        return this.web3
+            .readContractMethod(AliasesContract.Instance.methods.readAvatarHash(alias))
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
 

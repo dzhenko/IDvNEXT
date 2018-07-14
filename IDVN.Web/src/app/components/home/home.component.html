@@ -8,11 +8,6 @@
 </div>
 <br *ngIf="canClaimForFree" />
 
-<input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
-<button (click)="update()" class="btn btn-primary btn-lg">Update</button>
-<input [(ngModel)]="avatarFileName" name="avatarFileName" />
-<button (click)="read()" class="btn btn-primary btn-lg">Read</button>
-
 <div class="text-center">
     <ul class="nav nav-pills">
         <li role="presentation"><a [routerLink]="['/alias/search']">Find a suitable alias</a></li>

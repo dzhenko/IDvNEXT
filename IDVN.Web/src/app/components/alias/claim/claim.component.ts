@@ -52,7 +52,7 @@ export class ClaimAliasComponent implements OnInit, OnDestroy {
                             this.aliasesContract.claimAliasForFree(this.aliasToClaim).subscribe(tx => {
                                 this.isLoading = false;
                                 this.aliasToClaim = '';
-                                NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in List aliases.', [tx]);
+                                NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in View aliases.', [tx]);
                             });
                         }
                     });
@@ -78,7 +78,7 @@ export class ClaimAliasComponent implements OnInit, OnDestroy {
                         this.aliasesContract.claimAliasWithEth(this.aliasToClaim).subscribe(tx => {
                             this.isLoading = false;
                             this.aliasToClaim = '';
-                            NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in List aliases.', [tx]);
+                            NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in View aliases.', [tx]);
                         });
                     }
                 });
@@ -99,7 +99,7 @@ export class ClaimAliasComponent implements OnInit, OnDestroy {
                         this.aliasesContract.claimAliasWithToken(this.aliasToClaim).subscribe(tx => {
                             this.isLoading = false;
                             this.aliasToClaim = '';
-                            NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in List aliases.', [tx]);
+                            NotificationsService.successTx('You have sent a transaction to claim your alias!. If it succeeds you will find your alias in View aliases.', [tx]);
                         });
                     }
                 });

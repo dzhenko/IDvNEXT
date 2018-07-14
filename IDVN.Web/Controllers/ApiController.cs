@@ -35,18 +35,6 @@ namespace IDVN.Web.Controllers
 
             return this.Ok(new { hash });
         }
-
-        [HttpGet]
-        public async Task<IActionResult> ReadAvatarHash(string id, [FromServices]IPFSService iPFSService)
-        {
-            var stream = await iPFSService.ReadFile(id);
-            if (stream == null)
-            {
-                return this.BadRequest();
-            }
-
-            return this.File(stream, "application/octet-stream");
-        }
     }
 
     public class UpdateAvatarBindingModel

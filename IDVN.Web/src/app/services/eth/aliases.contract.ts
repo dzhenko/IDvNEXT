@@ -30,6 +30,9 @@ export interface IAliasesContractMethods {
     claimAliasWithEth(alias: string): any;
     claimAliasWithToken(alias: string): any;
     releaseAlias(alias: string): any;
+
+    updateAvatarHash(alias: string, hash: string): any;
+    readAvatarHash(alias: string): any;
     
     claimTokenFeeAmount(): any;
     claimEthFeeAmount(): any;
