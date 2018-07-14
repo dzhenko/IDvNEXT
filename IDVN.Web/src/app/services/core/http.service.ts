@@ -96,6 +96,25 @@ export class HttpService {
         return Observable.throw(errMsg);
     }
 
+    public postFormData(url: string, data: any, options: RequestOptionsArgs = null): Observable<any> {
+        const formData = this.buildFormData(data);
+        options = options || {};
+        options.headers = options.headers || new Headers();
+
+        this.log('POST FORM DATA -> ' + url);
+
+        return this.http.post(environment.apiUrl + 'api/' + url, formData, options)
+            .map((res: Response) => {
+                this.log('POST FORM DATA SUCCESS -> ' + url);
+                return this.extractData(res);
+            })
+            .catch(err => {
+                this.log('POST FORM DATA ERROR -> ' + url);
+                this.loggerService.debug(err);
+                return this.handleError(err);
+            });
+    }
+
     private buildOptions(options: RequestOptionsArgs): RequestOptionsArgs {
         options = options || {};
         options.headers = options.headers || new Headers();
@@ -110,6 +129,26 @@ export class HttpService {
         }
 
         return options;
+    }
+
+    private buildFormData(data: any): FormData {
+        const formData: FormData = new FormData();
+
+        for (let key in data) {
+            const currentProperty = data[key];
+
+            if (Array.isArray(currentProperty)) {
+                for (let i = 0; i < currentProperty.length; i++) {
+                    for (let elementName in currentProperty[i]) {
+                        formData.append(`${key}[${elementName}]`, currentProperty[i][elementName]);
+                    }
+                }
+            } else {
+                formData.append(key, currentProperty);
+            }
+        }
+
+        return formData;
     }
 
     private log(message: string, isError: boolean = false) {

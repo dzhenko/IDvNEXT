@@ -1,77 +1,91 @@
   Contract: Aliases.aliasToAddress
-    ✓ should not throw when trying to check empty string alias (49ms)
+    ✓ should not throw when trying to check empty string alias (64ms)
     ✓ should not throw when trying to check unclaimed alias
     ✓ should not return address when not claimed
-    ✓ should return address when claimed (100ms)
-    ✓ should not return address when not claimed (155ms)
-    ✓ should not return address when not claimed (212ms)
-    ✓ should return address when multiple aliases claimed (136ms)
+    ✓ should return address when claimed (104ms)
+    ✓ should not return address when not claimed (149ms)
+    ✓ should not return address when not claimed (181ms)
+    ✓ should return address when multiple aliases claimed (135ms)
 
   Contract: Aliases.aliasesCount_aliasAtIndex
     ✓ should throw when trying to get alias at non existing index
     ✓ should return 0 count when none claimed
-    ✓ should return 1 count when 1 claimed (90ms)
-    ✓ should return 2 count when 2 claimed (157ms)
-    ✓ should return correct alias when requested at index 0 (100ms)
-    ✓ should return correct alias when requested at index 1 (173ms)
-    ✓ should return empty string alias when claimed and released and claimed by other user (338ms)
+    ✓ should return 1 count when 1 claimed (83ms)
+    ✓ should return 2 count when 2 claimed (149ms)
+    ✓ should return correct alias when requested at index 0 (90ms)
+    ✓ should return correct alias when requested at index 1 (164ms)
+    ✓ should return empty string alias when claimed and released and claimed by other user (325ms)
 
   Contract: Aliases.changeClaimEthFeeAmount
     ✓ should throw when trying to change eth fee from not owner
-    ✓ should have new amount set as 5 (38ms)
+    ✓ should have new amount set as 5
 
   Contract: Aliases.changeClaimTokenFeeAmount
     ✓ should throw when trying to change token fee from not owner
-    ✓ should have new amount set as 5 (56ms)
+    ✓ should have new amount set as 5 (47ms)
 
   Contract: Aliases.claimAliasWithEth
-    ✓ should throw when trying to claim alias when fee is not 0 and no value is sent (76ms)
-    ✓ should throw when trying to claim alias when fee is not 0 and less value is sent (66ms)
-    ✓ should claim alias when fee is 0 (397ms)
-    ✓ should claim alias when fee is not 0 and exact value is sent (395ms)
-    ✓ should claim alias when fee is not 0 and more value is sent (416ms)
+    ✓ should throw when trying to claim alias when fee is not 0 and no value is sent (67ms)
+    ✓ should throw when trying to claim alias when fee is not 0 and less value is sent (58ms)
+    ✓ should claim alias when fee is 0 (391ms)
+    ✓ should claim alias when fee is not 0 and exact value is sent (380ms)
+    ✓ should claim alias when fee is not 0 and more value is sent (373ms)
 
   Contract: Aliases.claimAliasWithToken
-    ✓ should throw when trying to claim alias when fee is not 0 and no token is sent (91ms)
-    ✓ should throw when trying to claim alias when fee is not 0 and less token is sent (98ms)
-    ✓ should claim alias when fee is 0 (103ms)
-    ✓ should claim alias when fee is not 0 and exact token is sent (160ms)
-    ✓ should claim alias when fee is not 0 and more token is sent (167ms)
+    ✓ should throw when trying to claim alias when fee is not 0 and no token is sent (92ms)
+    ✓ should throw when trying to claim alias when fee is not 0 and less token is sent (90ms)
+    ✓ should claim alias when fee is 0 (92ms)
+    ✓ should claim alias when fee is not 0 and exact token is sent (156ms)
+    ✓ should claim alias when fee is not 0 and more token is sent (154ms)
 
   Contract: Aliases.claimAlias_releaseAlias
     ✓ should throw when trying to claim empty string alias
-    ✓ should throw when trying to claim already claimed alias (85ms)
+    ✓ should throw when trying to claim already claimed alias (94ms)
     ✓ should throw when trying to release empty string alias
     ✓ should throw when trying to release not claimed alias
-    ✓ should throw when trying to release not your claimed alias (112ms)
-    ✓ should release claimed alias (99ms)
+    ✓ should throw when trying to release not your claimed alias (83ms)
+    ✓ should release claimed alias (106ms)
 
   Contract: Aliases.claimedAliasesCount
     ✓ should show 0 aliases claimed initially
-    ✓ should show 1 aliases claimed after 1 alias is claimed (210ms)
-    ✓ should show 1 aliases claimed after 1 alias is claimed twice (258ms)
-    ✓ should show 0 aliases claimed after 1 alias is claimed and released (427ms)
-    ✓ should show 0 aliases claimed after 1 alias is claimed and released twice (435ms)
-    ✓ should show 1 aliases claimed after 1 alias is claimed and released and re-claimed (632ms)
-    ✓ should increment to 2 aliases claimed after 2 aliases claimed (418ms)
+    ✓ should show 1 aliases claimed after 1 alias is claimed (204ms)
+    ✓ should show 1 aliases claimed after 1 alias is claimed twice (246ms)
+    ✓ should show 0 aliases claimed after 1 alias is claimed and released (404ms)
+    ✓ should show 0 aliases claimed after 1 alias is claimed and released twice (440ms)
+    ✓ should show 1 aliases claimed after 1 alias is claimed and released and re-claimed (609ms)
+    ✓ should increment to 2 aliases claimed after 2 aliases claimed (401ms)
 
   Contract: Aliases.ctorArgs
-    ✓ should throw when trying to deploy with 0 address as wallet (99ms)
-    ✓ should throw when trying to deploy with empty address as wallet (81ms)
-    ✓ should throw when trying to deploy with 0 address as token address (39ms)
-    ✓ should throw when trying to deploy with empty address as token address (39ms)
-    ✓ should have initially wallet set as account 1 (132ms)
-    ✓ should have initially owner set as account 0 (122ms)
-    ✓ should have initially eth fee amount set as 0 (134ms)
-    ✓ should have initially token fee amount set as 0 (126ms)
+    ✓ should throw when trying to deploy with 0 address as wallet (93ms)
+    ✓ should throw when trying to deploy with empty address as wallet (85ms)
+    ✓ should throw when trying to deploy with 0 address as token address
+    ✓ should throw when trying to deploy with empty address as token address (41ms)
+    ✓ should have initially wallet set as account 1 (131ms)
+    ✓ should have initially owner set as account 0 (130ms)
+    ✓ should have initially eth fee amount set as 0 (216ms)
+    ✓ should have initially token fee amount set as 0 (135ms)
 
   Contract: Aliases.isClaimedAlias
     ✓ should not throw when trying to check empty string alias
-    ✓ should show claimed alias as claimed (78ms)
+    ✓ should show claimed alias as claimed (77ms)
     ✓ should not show unclaimed alias as claimed
-    ✓ should not show unclaimed alias as claimed multiple executions (45ms)
-    ✓ should show claimed alias as claimed when released and re-claimed (172ms)
-    ✓ should not show unclaimed alias as claimed when claimed and released (121ms)
+    ✓ should not show unclaimed alias as claimed multiple executions
+    ✓ should show claimed alias as claimed when released and re-claimed (181ms)
+    ✓ should not show unclaimed alias as claimed when claimed and released (123ms)
+
+  Contract: Aliases.isOwnAlias
+    ✓ should not throw when trying to check empty string alias
+    ✓ should show claimed alias as own (77ms)
+    ✓ should not show unclaimed alias as own
+    ✓ should not show claimed by other alias as own (79ms)
+
+  Contract: Aliases.readAvatar_updateAvatar
+    ✓ should throw when trying to update with empty alias
+    ✓ should throw when trying to update with empty hash
+    ✓ should throw when trying to update not claimed alias (43ms)
+    ✓ should throw when trying to update not yours alias (91ms)
+    ✓ should read when updated (114ms)
+    ✓ should read latest value when updated (153ms)
 
   Contract: Aliases.transferOwnership
     ✓ should throw when trying to transfer ownership to empty address
@@ -87,14 +101,14 @@
     ✓ should have new wallet set as account 1 (39ms)
 
 
-  64 passing (16s)
+  74 passing (18s)
 
 ----------------|----------|----------|----------|----------|----------------|
 File            |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 ----------------|----------|----------|----------|----------|----------------|
- contracts/     |      100 |    91.18 |      100 |      100 |                |
-  Aliases.sol   |      100 |    91.18 |      100 |      100 |                |
+ contracts/     |      100 |    92.86 |      100 |      100 |                |
+  Aliases.sol   |      100 |    92.86 |      100 |      100 |                |
   IDVNToken.sol |      100 |      100 |      100 |      100 |                |
 ----------------|----------|----------|----------|----------|----------------|
-All files       |      100 |    91.18 |      100 |      100 |                |
+All files       |      100 |    92.86 |      100 |      100 |                |
 ----------------|----------|----------|----------|----------|----------------|

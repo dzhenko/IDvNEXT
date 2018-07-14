@@ -1,10 +1,15 @@
-<h1 class="text-center">Search for free aliases</h1>
+<h1 class="text-center">Search for unclaimed aliases</h1>
 <br />
+
+<div *ngIf="canClaimForFree" class="alert alert-success" role="alert">We are currently offering claiming aliases for <strong>free</strong>!</div>
+<br *ngIf="canClaimForFree" />
 
 <div class="row">
     <div class="col-md-12">
-        <a [routerLink]="['/alias/claim']" class="btn btn-sm btn-success">Claim your alias</a>
-        <a [routerLink]="['/alias/list']" class="btn btn-sm btn-success">View your aliases</a>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a [routerLink]="['/alias/claim']">Claim your alias</a></li>
+            <li role="presentation"><a [routerLink]="['/alias/list']">View your aliases</a></li>
+        </ul>
     </div>
 </div>
 <br />
@@ -14,7 +19,7 @@
         <div class="input-group">
             <input [(ngModel)]="aliasToSearchFor" type="text" class="form-control" placeholder="Enter alias to search for" name="aliasToSearchFor">
             <span class="input-group-btn">
-                <button (click)="search()" class="btn btn-success" type="button">Search</button>
+                <button [disabled]="!aliasToSearchFor" (click)="search()" class="btn btn-primary" type="button">Search</button>
             </span>
         </div>
     </div>
@@ -23,12 +28,12 @@
 
 <div *ngIf="hasResults" class="row">
     <div *ngIf="aliasFree" class="col-md-12">
-        <strong>Congratulations! The alias {{aliasToSearchFor}} is free.</strong>
-        <a [routerLink]="['/alias/claim', aliasToSearchFor]" class="btn btn-sm btn-success">Claim it now</a>
+        <strong>Congratulations! The alias {{aliasResult}} is free.</strong>
+        <a [routerLink]="['/alias/claim', aliasResult]" class="btn btn-sm btn-primary">Claim it now!</a>
     </div>
 
     <div *ngIf="!aliasFree" class="col-md-12">
-        <strong>Sorry! The alias {{aliasToSearchFor}} is not available. But these alternatives are available:</strong>
+        <strong>Sorry! The alias {{aliasResult}} is not available. But these alternatives are available:</strong>
     </div>
 </div>
 <br />

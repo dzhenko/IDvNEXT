@@ -5,6 +5,9 @@ module.exports = {
     al2: 'david@main.eth',
     al3: 'mike@main.eth',
 
+    hash1: 'testhash1',
+    hash2: 'testhash2',
+
     emptyAddress: '0x0000000000000000000000000000000000000000',
 
     fee: 5,

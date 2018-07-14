@@ -29,10 +29,19 @@ export class AliasesContractService {
             .readContractMethod(AliasesContract.Instance.methods.isClaimedAlias(alias))
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
+    public isOwnAlias(alias: string): Observable<boolean> {
+        if (!alias) {
+            return UtilsService.observableFromEmpty();
+        }
+
+        return this.web3
+            .readContractMethod(AliasesContract.Instance.methods.isOwnAlias(alias))
+            .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
+    }
 
     public areClaimedAliases(aliases: string[]): Observable<boolean[]> {
         if (!aliases || !aliases.length || UtilsService.arrayAny(aliases, a => !!a)) {
-            return UtilsService.observableFromEmpty();
+            return UtilsService.observableFrom(aliases.map(() => false));
         }
 
         return this.web3
@@ -65,7 +74,7 @@ export class AliasesContractService {
                     }
                 }
 
-                return Observable.forkJoin(aliasesObs).map(arr => UtilsService.arrayDistinct(arr));
+                return Observable.forkJoin(aliasesObs).map(arr => UtilsService.arrayDistinct(arr).filter(a => !!a));
             })
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }

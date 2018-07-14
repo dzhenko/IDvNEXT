@@ -49,8 +49,10 @@ namespace IDVN.Web
                 return database;
             });
 
-            services.AddTransient<Web3Service>();
             services.AddTransient<AliasesService>();
+
+            services.AddSingleton<Web3Service>();
+            services.AddSingleton<IPFSService>();
 
             services.AddCors(options => options.AddPolicy(
                 "CorsPolicy",

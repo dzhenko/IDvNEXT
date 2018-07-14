@@ -10,6 +10,7 @@
         <PackageReference Include="Humanizer.Core" Version="2.4.2" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+        <PackageReference Include="net-ipfs-api" Version="0.4.10.3" />
         <PackageReference Include="Nethereum.Web3" Version="2.5.1" />
     </ItemGroup>
 
@@ -17,7 +18,6 @@
         <Folder Include="node_modules\**\*" />
         <None Remove="src\app\services\eth\aliases.contract.ts" />
         <Content Include="src\app\services\eth\aliases.contract.ts" />
-        <Folder Include="src\app\services\data\" />
         <Folder Include="wwwroot\" />
     </ItemGroup>
 </Project>

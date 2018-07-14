@@ -1,15 +1,26 @@
 <h1 class="text-center">Developer playground</h1>
 
-<input type="text" [(ngModel)]="alias" name="alias" placeholder="alias" />
-<button (click)="isClaimedAlias()">isClaimedAlias</button>
-<button (click)="aliasToAddress()">aliasToAddress</button>
-<button (click)="allAliases()">allAliases</button>
-<button (click)="canClaimAliasForFree()">canClaimAliasForFree</button>
-<button (click)="claimAliasForFree()">claimAliasForFree</button>
-<button (click)="claimAliasWithEth()">claimAliasWithEth</button>
-<button (click)="claimAliasWithToken()">claimAliasWithToken</button>
-<button (click)="releaseAlias()">releaseAlias</button>
-<button (click)="claimedAliasesCount()">claimedAliasesCount</button>
-<button (click)="getClaimEthFeeAmount()">getClaimEthFeeAmount</button>
-<button (click)="getClaimTokenFeeAmount()">getClaimTokenFeeAmount</button>
-<button (click)="getClaimTokenAddress()">getClaimTokenAddress</button>
+<input class="form-control" type="text" [(ngModel)]="alias" name="alias" placeholder="alias" />
+
+<hr />
+<button class="btn" (click)="isClaimedAlias()">isClaimedAlias</button>
+<button class="btn" (click)="aliasToAddress()">aliasToAddress</button>
+
+<hr />
+
+<button class="btn" (click)="canClaimAliasForFree()">canClaimAliasForFree</button>
+<button class="btn" (click)="claimAliasForFree()">claimAliasForFree</button>
+<button class="btn" (click)="claimAliasWithEth()">claimAliasWithEth</button>
+<button class="btn" (click)="claimAliasWithToken()">claimAliasWithToken</button>
+
+<hr />
+
+<button class="btn" (click)="allAliases()">allAliases</button>
+<button class="btn" (click)="claimedAliasesCount()">claimedAliasesCount</button>
+<button class="btn" (click)="releaseAlias()">releaseAlias</button>
+
+<hr />
+
+<button class="btn" (click)="getClaimEthFeeAmount()">getClaimEthFeeAmount</button>
+<button class="btn" (click)="getClaimTokenFeeAmount()">getClaimTokenFeeAmount</button>
+<button class="btn" (click)="getClaimTokenAddress()">getClaimTokenAddress</button>

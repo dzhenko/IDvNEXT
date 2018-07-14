@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class SwarmService {
+export class AliasesDataService {
 }

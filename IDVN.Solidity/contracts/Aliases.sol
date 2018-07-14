@@ -12,6 +12,7 @@ contract Aliases is Ownable {
         address owner;
         uint fee;
         bool claimedWithEth;
+        string avatarHash;
     }
     
     // Address where funds are collected
@@ -64,6 +65,10 @@ contract Aliases is Ownable {
     function isClaimedAlias(string _alias) public view returns (bool isClaimed) {
         return aliasesMap[_alias].owner != address(0);
     }
+
+    function isOwnAlias(string _alias) public view returns (bool isOwn) {
+        return aliasesMap[_alias].owner == msg.sender;
+    }
     
     function aliasToAddress(string _alias) public view returns (address addr) {
         return aliasesMap[_alias].owner;
@@ -112,12 +117,25 @@ contract Aliases is Ownable {
     function releaseAlias(string _alias) public {
         require(!_isEmptyString(_alias), 'Invalid alias.');
         require(isClaimedAlias(_alias), 'Alias not claimed yet.');
-        require(aliasesMap[_alias].owner == msg.sender, 'Alias not yours.');
+        require(isOwnAlias(_alias), 'Alias not yours.');
         
         delete aliasesMap[_alias];
         
         claimedAliasesCount = claimedAliasesCount.sub(1);
         emit ClaimedAliasesCountChanged(claimedAliasesCount);
+    }
+    
+    function updateAvatarHash(string _alias, string _hash) public {
+        require(!_isEmptyString(_alias), 'Invalid alias.');
+        require(!_isEmptyString(_hash), 'Invalid hash.');
+        require(isClaimedAlias(_alias), 'Alias not claimed yet.');
+        require(isOwnAlias(_alias), 'Alias not yours.');
+        
+        aliasesMap[_alias].avatarHash = _hash;
+    }
+    
+    function readAvatarHash(string _alias) public view returns (string hash) {
+        return aliasesMap[_alias].avatarHash;
     }
     
     function _isEmptyString(string _val) private pure returns (bool isEmpty) {

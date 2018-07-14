@@ -1,10 +1,15 @@
-<h1 class="text-center">Claimed your alias</h1>
+<h1 class="text-center">Claim your alias</h1>
 <br />
+
+<div *ngIf="canClaimForFree" class="alert alert-success" role="alert">We are currently offering claiming aliases for <strong>free</strong>!</div>
+<br *ngIf="canClaimForFree"/>
 
 <div class="row">
     <div class="col-md-12">
-        <a [routerLink]="['/alias/search']" class="btn btn-sm btn-success">Find a suitable alias</a>
-        <a [routerLink]="['/alias/list']" class="btn btn-sm btn-success">View your aliases</a>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a [routerLink]="['/alias/search']">Find a suitable alias</a></li>
+            <li role="presentation"><a [routerLink]="['/alias/list']">View your aliases</a></li>
+        </ul>
     </div>
 </div>
 <br />
@@ -14,7 +19,9 @@
         <div class="input-group">
             <input [(ngModel)]="aliasToClaim" type="text" class="form-control" placeholder="Enter alias to search for" name="aliasToClaim">
             <span class="input-group-btn">
-                <button (click)="claim()" class="btn btn-success" type="button">Claim</button>
+                <button [disabled]="!aliasToClaim || isLoading" *ngIf="canClaimForFree" (click)="claimForFree()" class="btn btn-success" type="button">Claim for FREE</button>
+                <button [disabled]="!aliasToClaim || isLoading" (click)="claimWithEth()" class="btn btn-primary" type="button">Claim with ETH</button>
+                <button [disabled]="!aliasToClaim || isLoading" (click)="claimWithToken()" class="btn btn-primary" type="button">Claim with IDVN</button>
             </span>
         </div>
     </div>

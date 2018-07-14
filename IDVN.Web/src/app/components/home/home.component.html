@@ -1,5 +1,25 @@
 <h1 class="text-center">Welcome</h1>
+<br />
 
+<div *ngIf="canClaimForFree" class="alert alert-success" role="alert">
+    We are currently offering claiming aliases for
+    <strong>free</strong>!
+    <a [routerLink]="['/alias/search']">Find yours now!</a>
+</div>
+<br *ngIf="canClaimForFree" />
+
+<input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+<button (click)="update()" class="btn btn-primary btn-lg">Update</button>
+<input [(ngModel)]="avatarFileName" name="avatarFileName" />
+<button (click)="read()" class="btn btn-primary btn-lg">Read</button>
+
+<div class="text-center">
+    <ul class="nav nav-pills">
+        <li role="presentation"><a [routerLink]="['/alias/search']">Find a suitable alias</a></li>
+        <li role="presentation"><a [routerLink]="['/alias/claim']">Claim your alias</a></li>
+        <li role="presentation"><a [routerLink]="['/alias/list']">View your aliases</a></li>
+    </ul>
+</div>
 <br />
 
 <div class="row">
@@ -35,13 +55,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<br/>
-<div class="text-center">
-    <a [routerLink]="['/alias/search']" class="btn btn-lg btn-success">Find a suitable alias</a>
-    <a [routerLink]="['/alias/claim']" class="btn btn-lg btn-success">Claim your alias</a>
-    <a [routerLink]="['/alias/list']" class="btn btn-lg btn-success">View your aliases</a>
 </div>
 
 <!--<div class="row">

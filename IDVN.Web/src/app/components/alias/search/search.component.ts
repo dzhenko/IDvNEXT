@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import {
     AliasesContractService,
@@ -9,7 +9,7 @@ import {
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.css']
 })
-export class SearchAliasComponent {
+export class SearchAliasComponent implements OnInit {
     constructor(private aliasesContract: AliasesContractService) {
         
     }
@@ -18,17 +18,28 @@ export class SearchAliasComponent {
     public hasResults: boolean = false;
     public aliasFree: boolean = false;
     public alternativeAliases: string[] = [];
+    public aliasResult: string = '';
+    public canClaimForFree: boolean = false;
+
+    ngOnInit() {
+        this.aliasesContract.canClaimAliasForFree().subscribe(r => this.canClaimForFree = r);
+    }
 
     public search() {
         this.alternativeAliases = [];
         this.aliasesContract.isClaimedAlias(this.aliasToSearchFor).subscribe(r => {
             this.hasResults = true;
             this.aliasFree = !r;
+            this.aliasResult = this.aliasToSearchFor;
+            this.aliasToSearchFor = '';
+
             if (!this.aliasFree) {
                 var variations = [
-                    this.aliasToSearchFor + UtilsService.random(1, 10000),
-                    this.aliasToSearchFor + UtilsService.random(1, 10000),
-                    this.aliasToSearchFor + UtilsService.random(1, 10000)
+                    this.aliasResult + 1,
+                    'the' + this.aliasResult,
+                    'official' + this.aliasResult,
+                    this.aliasResult + '_2',
+                    this.aliasResult + UtilsService.random(1, 10000),
                 ];
 
                 UtilsService.observableFromObservables(variations.map(v => this.aliasesContract.isClaimedAlias(v))).subscribe(results => {

@@ -3,8 +3,10 @@
 
 <div class="row">
     <div class="col-md-12">
-        <a [routerLink]="['/alias/search']" class="btn btn-sm btn-success">Find a suitable alias</a>
-        <a [routerLink]="['/alias/claim']" class="btn btn-sm btn-success">Claim your alias</a>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a [routerLink]="['/alias/claim']">Claim your alias</a></li>
+            <li role="presentation"><a [routerLink]="['/alias/search']">Find a suitable alias</a></li>
+        </ul>
     </div>
 </div>
 <br />

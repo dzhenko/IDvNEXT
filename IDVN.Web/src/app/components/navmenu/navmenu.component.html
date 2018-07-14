@@ -10,22 +10,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/home']">HOME</a>
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle cursor-pointer" data-toggle="dropdown" role="button" aria-expanded="false">ALIASES</a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/alias/claim']">CLAIM</a></li>
-                        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/alias/search']">SEARCH</a></li>
-                        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/alias/list']">LIST</a></li>
-                    </ul>
-                </li>
-
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/dev']">DEV</a>
-                </li>
+                <li [routerLinkActive]="['link-active']"><a [routerLink]="['/home']">HOME</a></li>
+                <li [routerLinkActive]="['link-active']"><a [routerLink]="['/alias/search']">SEARCH</a></li>
+                <li [routerLinkActive]="['link-active']"><a [routerLink]="['/alias/claim']">CLAIM</a></li>
+                <li [routerLinkActive]="['link-active']"><a [routerLink]="['/alias/list']">LIST</a></li>
+                <li [routerLinkActive]="['link-active']"><a [routerLink]="['/dev']">DEV</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
