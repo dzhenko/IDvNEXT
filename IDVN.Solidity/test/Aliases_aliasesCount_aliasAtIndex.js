@@ -1,13 +1,13 @@
 const AliasesContract = artifacts.require("Aliases");
-const { getTokenAddress, isRevert, al1, al2 } = require('./utils');
+const IDVNTokenContract = artifacts.require("IDVNToken");
+const { isRevert, al1, al2 } = require('./utils');
 
 contract("Aliases.aliasesCount_aliasAtIndex", accounts => {
     let instance;
-    let tokenAddress;
 
     beforeEach(async () => {
-        tokenAddress = await getTokenAddress();
-        instance = await AliasesContract.new(accounts[1], tokenAddress, 0, 0);
+        const tokenInstance = await IDVNTokenContract.new();
+        instance = await AliasesContract.new(accounts[1], tokenInstance.address, 0, 0);
     });
 
     it("should throw when trying to get alias at non existing index", async () => {
@@ -50,5 +50,15 @@ contract("Aliases.aliasesCount_aliasAtIndex", accounts => {
         const count = await instance.aliasesCount({from: accounts[0]});
         const result = await instance.aliasAtIndex(count - 1, {from: accounts[0]});
         assert.equal(result, al2, "Did not return correct alias when requested at index 1");
+    });
+
+    it("should return empty string alias when claimed and released and claimed by other user", async () => {
+        await instance.claimAliasWithEth(al1, {from: accounts[0]});
+        await instance.releaseAlias(al1, {from: accounts[0]});
+        await instance.claimAliasWithEth(al1, {from: accounts[1]});
+
+        const count = await instance.aliasesCount({from: accounts[0]});
+        const result = await instance.aliasAtIndex(count - 1, {from: accounts[0]});
+        assert.equal(result, '', "Did not return empty string when claimed and released and reclaimed by other user");
     });
 });

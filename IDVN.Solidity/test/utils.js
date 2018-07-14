@@ -1,4 +1,4 @@
-let tokenAddress = null;
+let tokenContractInstance = null;
 
 module.exports = {
     al1: 'john@main.eth',
@@ -7,16 +7,18 @@ module.exports = {
 
     emptyAddress: '0x0000000000000000000000000000000000000000',
 
+    fee: 5,
+
     isRevert: ex => ex && /revert/.test(ex.message),
 
-    getTokenAddress: async artefacts => {
-        if (tokenAddress) {
-            return tokenAddress;
+    getTokenInstance: async artefacts => {
+        if (tokenInstance) {
+            return tokenInstance;
         }
 
         const TokenContract = artifacts.require("IDVNToken");
-        instance = await TokenContract.new();
+        tokenInstance = await TokenContract.new();
         tokenAddress = instance.address;
-        return tokenAddress;
+        return tokenInstance;
     }
 };

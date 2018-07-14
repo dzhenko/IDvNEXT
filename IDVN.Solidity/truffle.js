@@ -17,7 +17,8 @@ module.exports = {
 	development: {
 		host: "localhost",
 		port: 7545,
-		network_id: "*"
+		network_id: "*",
+		gasPrice: 0x01
 	},
 	coverage: {
 	    host: "127.0.0.1",

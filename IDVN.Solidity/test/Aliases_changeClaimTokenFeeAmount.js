@@ -1,13 +1,13 @@
 const AliasesContract = artifacts.require("Aliases");
-const { getTokenAddress, isRevert } = require('./utils');
+const IDVNTokenContract = artifacts.require("IDVNToken");
+const { isRevert } = require('./utils');
 
 contract("Aliases.changeClaimTokenFeeAmount", accounts => {    
     let instance;
-    let tokenAddress;
 
     beforeEach(async () => {
-        tokenAddress = await getTokenAddress();
-        instance = await AliasesContract.new(accounts[1], tokenAddress, 0, 0);
+        const tokenInstance = await IDVNTokenContract.new();
+        instance = await AliasesContract.new(accounts[1], tokenInstance.address, 0, 0);
     });
     
     it("should throw when trying to change token fee from not owner", async () => {

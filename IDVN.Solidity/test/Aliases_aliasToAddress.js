@@ -1,13 +1,13 @@
 const AliasesContract = artifacts.require("Aliases");
-const { getTokenAddress, al1, al2, emptyAddress } = require('./utils');
+const IDVNTokenContract = artifacts.require("IDVNToken");
+const { al1, al2, emptyAddress } = require('./utils');
 
 contract("Aliases.aliasToAddress", accounts => {
     let instance;
-    let tokenAddress;
 
     beforeEach(async () => {
-        tokenAddress = await getTokenAddress();
-        instance = await AliasesContract.new(accounts[1], tokenAddress, 0, 0);
+        const tokenInstance = await IDVNTokenContract.new();
+        instance = await AliasesContract.new(accounts[1], tokenInstance.address, 0, 0);
     });
 
     it("should not throw when trying to check empty string alias", async () => {

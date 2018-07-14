@@ -1,14 +1,14 @@
 const AliasesContract = artifacts.require("Aliases");
-const { getTokenAddress, isRevert, al1, al2 } = require('./utils');
+const IDVNTokenContract = artifacts.require("IDVNToken");
+const { isRevert, al1, al2 } = require('./utils');
 
 contract("Aliases.claimedAliasesCount", accounts => {    
     let instance;
-    let tokenAddress;
     let watcher;
 
     beforeEach(async () => {
-        tokenAddress = await getTokenAddress();
-        instance = await AliasesContract.new(accounts[1], tokenAddress, 0, 0);
+        const tokenInstance = await IDVNTokenContract.new();
+        instance = await AliasesContract.new(accounts[1], tokenInstance.address, 0, 0);
         watcher = instance.ClaimedAliasesCountChanged();
     });
 
