@@ -7,8 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import { AliasesContract } from './aliases.contract';
 
 import { BaseInitableService } from '../base/base-initable.service';
-import { UtilsService } from '../core/utils.service';
 import { LoggerService } from '../core/logger.service';
+import { UtilsService } from '../core/utils.service';
 import { IdentityService } from '../core/identity.service';
 
 @Injectable()

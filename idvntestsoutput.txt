@@ -1,0 +1,75 @@
+ Contract: Aliases.aliasesCount_aliasAtIndex
+    √ should throw when trying to get alias at non existing index (46ms)
+    √ should return 0 count when none claimed (42ms)
+    √ should return 1 count when 1 claimed (210ms)
+    √ should return 2 count when 2 claimed (406ms)
+    √ should return correct alias when requested at index 0 (213ms)
+    √ should return correct alias when requested at index 1 (344ms)
+
+  Contract: Aliases.changeClaimEthFeeAmount
+    √ should throw when trying to change eth fee from not owner (54ms)
+    √ should have new amount set as 5 (203ms)
+
+  Contract: Aliases.aliasToAddress
+    √ should not throw when trying to check empty string alias
+    √ should not throw when trying to check unclaimed alias
+    √ should not return address when not claimed
+    √ should return address when claimed (184ms)
+    √ should not return address when not claimed (293ms)
+    √ should not return address when not claimed (505ms)
+    √ should return address when multiple aliases claimed (307ms)
+
+  Contract: Aliases.changeClaimTokenFeeAmount
+    √ should throw when trying to change token fee from not owner (49ms)
+    √ should have new amount set as 5 (124ms)
+
+  Contract: Aliases.claimedAliasesCount
+    √ should show 0 aliases claimed initially
+    √ should show 1 aliases claimed after 1 alias is claimed (365ms)
+    √ should show 1 aliases claimed after 1 alias is claimed twice (417ms)
+    √ should show 0 aliases claimed after 1 alias is claimed and released (618ms)
+    √ should show 0 aliases claimed after 1 alias is claimed and released twice (700ms)
+    √ should show 1 aliases claimed after 1 alias is claimed and released and re-claimed (982ms)
+    √ should increment to 2 aliases claimed after 2 aliases claimed (638ms)
+
+  Contract: Aliases.isClaimedAlias
+    √ should not throw when trying to check empty string alias
+    √ should show claimed alias as claimed (177ms)
+    √ should not show unclaimed alias as claimed
+    √ should not show unclaimed alias as claimed multiple executions (50ms)
+    √ should show claimed alias as claimed when released and re-claimed (416ms)
+    √ should not show unclaimed alias as claimed when claimed and released (283ms)
+
+  Contract: Aliases.ctorArgs
+    √ should throw when trying to deploy with 0 address as wallet (56ms)
+    √ should throw when trying to deploy with empty address as wallet (50ms)
+    √ should throw when trying to deploy with 0 address as token address (54ms)
+    √ should throw when trying to deploy with empty address as token address (52ms)
+    √ should have initially wallet set as account 1 (182ms)
+    √ should have initially owner set as account 0 (164ms)
+    √ should have initially eth fee amount set as 0 (158ms)
+    √ should have initially token fee amount set as 0 (163ms)
+
+  Contract: Aliases.claimAliasWithEth_releaseAlias
+    √ should throw when trying to claim empty string alias (51ms)
+    √ should throw when trying to claim already claimed alias (210ms)
+    √ should throw when trying to release empty string alias (43ms)
+    √ should throw when trying to release not claimed alias (58ms)
+    √ should throw when trying to release not your claimed alias (206ms)
+    √ should release claimed alias (224ms)
+
+  Contract: Aliases.transferOwnership
+    √ should throw when trying to transfer ownership to empty address (39ms)
+    √ should throw when trying to transfer ownership to 0 address (44ms)
+    √ should throw when trying to transfer ownership from not owner (47ms)
+    √ should have new owner set as account 1 (131ms)
+
+  Contract: Aliases.transferWallet
+    √ should throw when trying to transfer wallet to empty address (51ms)
+    √ should throw when trying to transfer wallet to address 0 (49ms)
+    √ should throw when trying to transfer wallet from not wallet (54ms)
+    √ should throw when trying to transfer wallet from not owner and not wallet (44ms)
+    √ should have new wallet set as account 1 (112ms)
+
+
+  53 passing (19s)
