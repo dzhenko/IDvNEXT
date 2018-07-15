@@ -23,6 +23,13 @@ namespace IDVN.Web.Logic
 
         public async Task<string> AliasToAddress(string alias)
         {
+            if (string.IsNullOrEmpty(alias) || !alias.Contains("@"))
+            {
+                return null;
+            }
+
+            alias = alias.Substring(0, alias.LastIndexOf("@"));
+
             QuriesCount++;
 
             var address = await this.contract.GetFunction("aliasToAddress").CallAsync<string>(alias);

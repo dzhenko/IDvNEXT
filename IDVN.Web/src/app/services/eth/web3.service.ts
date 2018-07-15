@@ -219,10 +219,12 @@ export class Web3Service {
             this.web3.setProvider(new this.web3.providers.HttpProvider(environment.nodeUrl));
 
             if (!Web3Service.ADDRESS) {
-                const persisted = this.storageService.getItem('pk');
-                if (persisted) {
-                    Web3Service.PK = persisted;
-                    Web3Service.ADDRESS = this.privateKeyToAccount(persisted).address;
+                const persistedPk = this.storageService.getItem('pk');
+                const persistedAddr = this.storageService.getItem('addr');
+                if (persistedPk && persistedAddr) {
+                    Web3Service.PK = persistedPk;
+                    Web3Service.ADDRESS = persistedAddr;
+                    this.unlockAccount(persistedPk);
                 }
                 else {
                     NotificationsService.confirm(
@@ -233,15 +235,19 @@ export class Web3Service {
                             Web3Service.ADDRESS = this.privateKeyToAccount(pk).address;
                             this.unlockAccount(pk);
                             this.storageService.setItem('pk', pk);
+                            this.storageService.setItem('addr', Web3Service.ADDRESS);
                             NotificationsService.success('Account created!');
                         },
                         () => {
                             NotificationsService.prompt('Enter PK', 'Import account', pk => {
-                                Web3Service.PK = pk;
-                                Web3Service.ADDRESS = this.privateKeyToAccount(pk).address;
-                                this.unlockAccount(pk);
-                                this.storageService.setItem('pk', pk);
-                                NotificationsService.success('Account imported!');
+                                NotificationsService.prompt('Enter Address', 'Import account', address => {
+                                    Web3Service.PK = pk;
+                                    Web3Service.ADDRESS = address;
+                                    this.unlockAccount(pk);
+                                    this.storageService.setItem('pk', pk);
+                                    this.storageService.setItem('addr', address);
+                                    NotificationsService.success('Account imported!');
+                                }, null, null);
                             }, null, null);
                         },
                         'Welcome',
