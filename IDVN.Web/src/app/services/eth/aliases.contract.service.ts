@@ -9,14 +9,12 @@ import { TokenContract } from './token.contract';
 import { BaseInitableService } from '../base/base-initable.service';
 import { LoggerService } from '../core/logger.service';
 import { UtilsService } from '../core/utils.service';
-import { IdentityService } from '../core/identity.service';
 import { EthService } from './eth.service';
 
 @Injectable()
 export class AliasesContractService {
     constructor(
         private loggerService: LoggerService,
-        private identityService: IdentityService,
         private web3: Web3Service) {
     }
 
@@ -36,7 +34,7 @@ export class AliasesContractService {
         }
 
         return this.web3
-            .readContractMethod(AliasesContract.Instance.methods.isOwnAlias(alias), this.identityService.getAddress())
+            .readContractMethod(AliasesContract.Instance.methods.isOwnAlias(alias))
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
 
@@ -46,7 +44,7 @@ export class AliasesContractService {
         }
 
         return this.web3
-            .writeContractMethod(AliasesContract.Instance.methods.updateAvatarHash(alias, hash), this.identityService.getAddress())
+            .writeContractMethod(AliasesContract.Instance.methods.updateAvatarHash(alias, hash))
             .map(r => r.transactionHash)
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
@@ -85,14 +83,14 @@ export class AliasesContractService {
 
     public allAliases(): Observable<string[]> {
         return this.web3
-            .readContractMethod(AliasesContract.Instance.methods.aliasesCount(), this.identityService.getAddress())
+            .readContractMethod(AliasesContract.Instance.methods.aliasesCount())
             .flatMap(r => {
                 const aliasesObs = [];
 
                 if (r && !isNaN(r)) {
                     const count = parseInt(r);
                     for (var i = 0; i < count; i++) {
-                        aliasesObs.push(this.web3.readContractMethod(AliasesContract.Instance.methods.aliasAtIndex(i), this.identityService.getAddress()));
+                        aliasesObs.push(this.web3.readContractMethod(AliasesContract.Instance.methods.aliasAtIndex(i)));
                     }
                 }
 
@@ -133,7 +131,7 @@ export class AliasesContractService {
         }
 
         return this.web3
-            .writeContractMethod(AliasesContract.Instance.methods.claimAliasWithEth(alias), this.identityService.getAddress())
+            .writeContractMethod(AliasesContract.Instance.methods.claimAliasWithEth(alias))
             .map(r => r.transactionHash)
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
@@ -145,7 +143,7 @@ export class AliasesContractService {
 
         // CALL APPROVE!
         return this.web3
-            .writeContractMethod(AliasesContract.Instance.methods.claimAliasWithToken(alias), this.identityService.getAddress())
+            .writeContractMethod(AliasesContract.Instance.methods.claimAliasWithToken(alias))
             .map(r => r.transactionHash)
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }
@@ -156,7 +154,7 @@ export class AliasesContractService {
         }
 
         return this.web3
-            .writeContractMethod(AliasesContract.Instance.methods.releaseAlias(alias), this.identityService.getAddress())
+            .writeContractMethod(AliasesContract.Instance.methods.releaseAlias(alias))
             .map(r => r.transactionHash)
             .catch(err => this.log(err, true) || UtilsService.observableFromEmpty());
     }

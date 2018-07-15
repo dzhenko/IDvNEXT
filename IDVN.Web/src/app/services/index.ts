@@ -3,7 +3,7 @@ import { ConfigService } from './core/config.service';
 import { DateTimeService } from './core/datetime.service';
 import { GridService } from './core/grid.service';
 import { HttpService } from './core/http.service';
-import { IdentityService } from './core/identity.service';
+//import { IdentityService } from './core/identity.service';
 import { LoaderService } from './core/loader.service';
 import { LoggerService } from './core/logger.service';
 import { NotificationsService } from './core/notifications.service';
@@ -28,7 +28,7 @@ export * from './core/config.service';
 export * from './core/datetime.service';
 export * from './core/grid.service';
 export * from './core/http.service';
-export * from './core/identity.service';
+//export * from './core/identity.service';
 export * from './core/loader.service';
 export * from './core/logger.service';
 export * from './core/notifications.service';
@@ -54,7 +54,7 @@ export const APP_SERVICES = [
     DateTimeService,
     GridService,
     HttpService,
-    IdentityService,
+    //IdentityService,
     LoaderService,
     LoggerService,
     NotificationsService,

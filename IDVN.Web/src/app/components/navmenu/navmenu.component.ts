@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import {
-    IdentityService,
+    Web3Service,
     EthService
 } from '../../services/index';
 
@@ -10,12 +10,20 @@ import {
     templateUrl: './navmenu.component.html',
     styleUrls: ['./navmenu.component.css']
 })
-export class NavMenuComponent{
+export class NavMenuComponent implements OnInit {
     constructor(
-        private identityService: IdentityService) {
+        private web3Service: Web3Service) {
     }
 
-    public imgUrl = EthService.generateAddressImageUrl(this.identityService.getAddress());
-    public isLoggedIn = this.identityService.isLoggedIn();
-    public user = this.identityService.getAddress();
+    ngOnInit() {
+        this.web3Service.walletAccount().subscribe(address => {
+            this.imgUrl = EthService.generateAddressImageUrl(address);
+            this.isLoggedIn = !!address;
+            this.user = address;
+        });
+    }
+
+    public imgUrl: string = null;
+    public isLoggedIn: boolean = false;
+    public user: string = null;
 }

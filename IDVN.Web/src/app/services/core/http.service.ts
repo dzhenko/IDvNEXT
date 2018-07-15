@@ -3,7 +3,6 @@ import { Http, Response, Headers, RequestOptionsArgs } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { IdentityService } from './identity.service';
 import { LoggerService } from './logger.service';
 
 import { environment } from '../../../environments/environment';
@@ -12,7 +11,6 @@ import { environment } from '../../../environments/environment';
 export class HttpService {
     constructor(
         private http: Http,
-        private identityService: IdentityService,
         private loggerService: LoggerService) { }
 
     public get(url: string, options: RequestOptionsArgs = null): Observable<any> {
@@ -121,11 +119,6 @@ export class HttpService {
 
         if (!options.headers.has('Content-Type')) {
             options.headers.append('Content-Type', 'application/json');
-        }
-
-        const address = this.identityService.getAddress();
-        if (address) {
-            options.headers.set('User', address);
         }
 
         return options;
