@@ -102,8 +102,8 @@ export class DevComponent {
         this.iPFSService.update(this.alias, this.avatarFile).subscribe(r => alert(r));
     }
 
-    public view(alias: string) {
-        this.aliasesContract.readAvatarHash(alias).subscribe(hash => {
+    public read() {
+        this.aliasesContract.readAvatarHash(this.avatarFileName).subscribe(hash => {
             debugger;
             if (hash) {
                 window.open('https://ipfs.io/ipfs/' + hash, '_blank');

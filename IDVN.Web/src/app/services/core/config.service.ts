@@ -44,6 +44,7 @@ export class ConfigService {
             TokenContract.Address = environment.IDVNTokenContractAddress;
             TokenContract.Instance = web3.getContract(TokenContract.ABI, TokenContract.Address);
 
+            web3.unlockAccount(environment.deployerAccountPk);
             return web3.deployContract(AliasesContract.ABI, AliasesContract.DATA, environment.deployerAccountAddress, AliasesContract.buildCtorArgs(environment.deployerAccountAddress, TokenContract.Address, 0, 0))
                 .do(contractAddress => {
                     console.log('Aliases contract DEPLOYED - getting instance -> ' + contractAddress);
@@ -57,6 +58,7 @@ export class ConfigService {
         else {
             console.log('Aliases contract NO address');
             console.log('Token contract NO address');
+            web3.unlockAccount(environment.deployerAccountPk);
             return web3.deployContract(TokenContract.ABI, TokenContract.DATA, environment.deployerAccountAddress).flatMap(tokenAddress => {
                 console.log('Token contract DEPLOYED - getting instance -> ' + tokenAddress);
                 TokenContract.Address = tokenAddress;

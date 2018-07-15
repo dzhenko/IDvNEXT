@@ -25,10 +25,6 @@
                         ACCOUNT
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li *ngIf="isLoggedIn" [routerLinkActive]="['link-active']"><a [routerLink]="['/profile']">SETTINGS</a></li>
-
-                        <li *ngIf="!isLoggedIn" [routerLinkActive]="['link-active']"><a [routerLink]="['/profile']">CREATE</a></li>
-                        <li *ngIf="!isLoggedIn" [routerLinkActive]="['link-active']"><a [routerLink]="['/profile']">IMPORT</a></li>
                     </ul>
                 </li>
             </ul>

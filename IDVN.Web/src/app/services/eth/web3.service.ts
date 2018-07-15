@@ -6,10 +6,22 @@ import * as Transaction from 'ethereumjs-tx';
 import { environment } from '../../../environments/environment';
 import { UtilsService } from '../core/utils.service';
 import { NotificationsService } from '../core/notifications.service';
+import { StorageService } from '../core/storage.service';
+
+declare var ethereumjs: any;
 
 @Injectable()
 export class Web3Service {
     public static USING_HTTP_NODE: boolean = false;
+
+    private static PK: string = '';
+    private static ADDRESS: string = '';
+
+    public static ISLOGGEDIN: boolean = false;
+
+    constructor(private storageService: StorageService) {
+
+    }
 
     private web3Instance: any;
     
@@ -51,21 +63,49 @@ export class Web3Service {
         return new this.web3.eth.Contract(abi, address);
     }
 
-    public deployContract(abi: any[], data: string, from: string, ctorParams: any[] = null, gasPrice: string = '100000', gas: number = 5000000): Observable<string> {
+    public deployContract(abi: any[], data: string, from: string, ctorParams: any[] = null, gasPrice: string = '1', gasLimit: number = 4665264): Observable<string> {
         const contract = new this.web3.eth.Contract(abi);
-        return UtilsService.observableFromCb(done => contract
-            .deploy({
-                data: data,
-                arguments: ctorParams
-            }).send({
-                from: from,
-                gas: gas,
-                gasPrice: gasPrice
-            }, function (err, txHash) {
-                if (err) {
-                    done(false, err);
-                }
-            }).then(newContractInstance => done(true, newContractInstance.options.address)));
+        if (Web3Service.USING_HTTP_NODE) {
+            return UtilsService.observableFromCb(done => {
+                this.getNonce(Web3Service.ADDRESS).subscribe(nonce => {
+                    const txData = contract.deploy({
+                        data: data,
+                        arguments: ctorParams
+                    });
+
+                    var tx = new ethereumjs.Tx({
+                        nonce: nonce,
+                        gasPrice: this.web3.utils.toHex(gasPrice),
+                        gasLimit: gasLimit,
+                        value: 0,
+                        data: txData,
+                    });
+
+                    tx.sign(ethereumjs.Buffer.Buffer.from(Web3Service.PK, 'hex'));
+
+                    var raw = '0x' + tx.serialize().toString('hex');
+                    this.web3.eth.sendRawTransaction(raw, function (err, transactionHash) {
+                        debugger;
+                        done(true, transactionHash);
+                    });
+                });
+            });
+        }
+        else {
+            return UtilsService.observableFromCb(done => contract
+                .deploy({
+                    data: data,
+                    arguments: ctorParams
+                }).send({
+                    from: from,
+                    gas: gasLimit,
+                    gasPrice: gasPrice
+                }, function (err, txHash) {
+                    if (err) {
+                        done(false, err);
+                    }
+                }).then(newContractInstance => done(true, newContractInstance.options.address)));
+        }
     }
 
     public readContractMethod(method: any): Observable<any> {
@@ -112,11 +152,10 @@ export class Web3Service {
                     .catch(err => done(false, err))));
     }
 
-    // Get metamask wallet accounts
     public walletAccount(): Observable<string> {
         if (Web3Service.USING_HTTP_NODE) {
-            console.log('Wallet account: ' + '');
-            return Observable.of('');
+            console.log('Wallet account: ' + Web3Service.ADDRESS);
+            return Observable.of(Web3Service.ADDRESS);
         }
         else {
             return Observable.fromPromise(this.web3.eth.getAccounts()).map(accounts => {
@@ -129,6 +168,10 @@ export class Web3Service {
     // Utils
     public weiToEth(wei: number): number {
         return parseFloat(this.web3.fromWei(wei, 'ether'));
+    }
+
+    public unlockAccount(pk: string) {
+        this.web3.eth.accounts.wallet.add(pk);
     }
 
     public createAccount(): any {
@@ -170,10 +213,42 @@ export class Web3Service {
                 }
             });
         } else {
-            Web3Service.USING_HTTP_NODE = false;
+            Web3Service.USING_HTTP_NODE = true;
             console.log('Using HTTP node');
             this.web3 = new this.Web3();
             this.web3.setProvider(new this.web3.providers.HttpProvider(environment.nodeUrl));
+
+            if (!Web3Service.ADDRESS) {
+                const persisted = this.storageService.getItem('pk');
+                if (persisted) {
+                    Web3Service.PK = persisted;
+                    Web3Service.ADDRESS = this.privateKeyToAccount(persisted).address;
+                }
+                else {
+                    NotificationsService.confirm(
+                        'You have no account yet. Do you want to import account or create one?',
+                        () => {
+                            var pk = this.generatePk();
+                            Web3Service.PK = pk;
+                            Web3Service.ADDRESS = this.privateKeyToAccount(pk).address;
+                            this.unlockAccount(pk);
+                            this.storageService.setItem('pk', pk);
+                            NotificationsService.success('Account created!');
+                        },
+                        () => {
+                            NotificationsService.prompt('Enter PK', 'Import account', pk => {
+                                Web3Service.PK = pk;
+                                Web3Service.ADDRESS = this.privateKeyToAccount(pk).address;
+                                this.unlockAccount(pk);
+                                this.storageService.setItem('pk', pk);
+                                NotificationsService.success('Account imported!');
+                            }, null, null);
+                        },
+                        'Welcome',
+                        'Create',
+                        'Import');
+                }
+            }            
         }
     }
 
